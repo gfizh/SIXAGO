@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            // id unik nya nih
-            $table->id();
-            // keperluan untuk user
-            $table->string('name');
-            $table->text('description');
-        });
+       Schema::create('approval_levels', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->integer('level')->unique();
+        $table->timestamps();
+    });
     }
 
     /**
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('approval_levels');
     }
 };

@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('approval_levels', function (Blueprint $table) {
-          
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('level');
-         });
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
+            $table->enum('status', ['active', 'inactive', 'completed'])->default('active');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('projects');
     }
 };
